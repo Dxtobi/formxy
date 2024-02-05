@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    .key-word { color: blue; }
+    .symbol { color: red; }
+    .separators { color: green; }
+    /* Add more styles for other types as needed */
+  </style>
+  <title>Word Styling</title>
+</head>
+<body>
+
+<input type="text" id="textInput" placeholder="Enter text">
+<div id="styledText"></div>
+
+<script>
+  const wordList = [
+    {word: 'function', type: 'key-word'},
+    {word: ':', type: 'symbol'},
+    {word: '=', type: 'symbol'},
+    {word: '{', type: 'separators'}
+    // Add more words and types to the list as needed
+  ];
+
+  function styleText() {
+    const inputText = document.getElementById('textInput').value;
+    const styledTextDiv = document.getElementById('styledText');
+    
+    // Split the input text into words
+    const words = inputText.split(' ');
+
+    // Iterate through each word
+    const styledWords = words.map(word => {
+      // Check if the word is in the wordList
+      const matchingWord = wordList.find(entry => entry.word === word);
+      
+      // If a match is found, apply the corresponding style
+      if (matchingWord) {
+        return `<span class="${matchingWord.type}">${word}</span>`;
+      } else {
+        return word;
+      }
+    });
+
+    // Display the styled text
+    styledTextDiv.innerHTML = styledWords.join(' ');
+  }
+
+  // Add an event listener to trigger the styling function on input change
+  document.getElementById('textInput').addEventListener('input', styleText);
+</script>
+
+</body>
+</html>
